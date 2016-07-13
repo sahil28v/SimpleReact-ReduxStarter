@@ -1,17 +1,23 @@
-import { createStore } from 'redux';
-import rootReducer from './rootReducer'
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
+import rootReducer from './rootReducer';
 
 const configureStore = () => {
 	const persistedState = {
 		reducer2: [{id:"B",title: "Character",}]
 	};
 
-	const store = createStore(rootReducer,persistedState);
+	const middlewares = [thunk];
+	if(process.env.NODE_ENV !== 'production') {
+		middlewares.push(createLogger());
+	}
 
-	store.subscribe(()=>{
-		console.log(store.getState());
-	});
-	return store;
-}
+	return createStore(
+		rootReducer,
+		persistedState,
+		applyMiddleware(...middlewares)
+	);
+};
 
 export default configureStore;

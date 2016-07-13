@@ -9,7 +9,7 @@ import {Provider} from 'react-redux';
 
 const store = configureStore() ;
 
-console.log(store.getState());
+//console.log(store.getState());
 
 render(<Root store={store} />,
 	document.querySelector('#root')
