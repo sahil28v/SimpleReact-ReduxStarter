@@ -24,7 +24,35 @@ module.exports = {
 				loader: "babel",
 				exclude: /node_modules/,
 				include: path.join(__dirname, 'src')
-			}
+			},
+			{
+				test: /\.css$/,
+				loaders: [
+					'style',
+					'css?modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]',
+					'postcss'
+				],
+				exclude: [
+			      path.resolve('node_modules')
+			    ]
+			},
+			{
+				test: /\.css$/,
+				loaders: [
+					'style',
+					'css',
+				],
+				include:[
+					path.resolve('node_modules','grommet')
+				]
+			},
+			{
+				test: /\.json$/,
+				loader: 'json-loader',
+			},
+		],
+		postcss:[
+			require('autoprefixer'),
 		]
 	}
 };
